@@ -1,0 +1,456 @@
+body{
+  background:url('startscreen.jpg') no-repeat;
+  background-size: 100%;
+}
+
+h4{
+  margin-left: 10px;
+}
+
+#diffList{
+  position: absolute;
+  top:0;
+  left:0;
+  height: 20px;
+  width: 100px;
+  border: 2px solid black;
+  border-radius: .8em;
+  background-color: #b3ffff;
+  padding: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.difficulty{
+  position: absolute;
+  top:50px;
+  left:0;
+  height: 200px;
+  width: 100px;
+  visibility: hidden;
+  margin-left: 10px;
+}
+
+.difficulties{
+  height: 60px;
+  width: 90px;
+  border: 5px solid black;
+  border-radius: 0.5em;
+  background-color: #e6e6e6;
+}
+
+#normal{
+  background-color: #ccff99;
+}
+
+#startG{
+  background-color: lime;
+  height: 80px;
+  width: 100px;
+  border-radius: 10px;
+  border: 2px solid #000099;
+  position: absolute;
+  top:20%;
+  left:30%;
+}
+
+.smallA{
+  width: 100px;
+  height: 100px;
+  background-color: aquamarine;
+  border: 1px solid black;
+  float: left;
+}
+
+.rule{
+  display: flex;
+  flex-direction: column;
+}
+
+img{
+  width: 50%;
+  height: 50%;
+  visibility:hidden;
+}
+
+#wrapOutputs{
+  position: absolute;
+  top:0;
+  left:0;
+  margin: 1em;
+  width: 300px;
+}
+
+#output{
+  margin: 1em;
+  background-color: #990000;
+  font-size: 1.5em;
+  width: 200px;
+  font-family: 'Lobster', cursive;
+  text-align: center;
+}
+
+#output2{
+  margin-left: 1em;
+  margin-bottom: 15px;
+  background-color: rgb(236, 255, 179);
+  font-size: 1.5em;
+  width: 120px;
+  font-family: 'Lobster', cursive;
+  text-align: center;
+}
+
+#fightYN{
+  visibility: hidden;
+  background-color: #b30000;
+  background-image: url(swords1.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: white;
+  height: 60px;
+  width: 90px;
+  border: 2px solid black;
+  border-radius: 0.5em;
+  margin-right: 1em;
+}
+
+#flee{
+  visibility: hidden;
+  background-color: #e6ccb3;
+  background-image: url(surrender.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  font-weight: bold;
+  font-size: 20px;
+  height: 60px;
+  width: 90px;
+  border: 5px solid black;
+  border-radius: 0.5em;
+  margin-right: 1em;
+}
+
+#healthB{
+  visibility: hidden;
+  background-color: red;
+  height: 40px;
+  width: 200px;
+  border: 1px solid black;
+  position: fixed;
+  right: 0;
+  top:0;
+  border-radius: 20px;
+  z-index: 100;
+}
+
+p{
+  visibility: hidden;
+  position: fixed;
+  right: 210px;
+  top:0;
+  font-family: 'Permanent Marker', cursive;
+  font-size: .9em;
+  z-index: 100;
+}
+
+#attack{
+  visibility: hidden;
+  border-width:5px;
+  border-style:groove;
+  border-color: yellow;
+  color: black;
+  background-color: gold;
+  font-size: .8em;
+  font-weight: bold;
+}
+
+#wrapper{
+  position: absolute;
+  left: 820px;
+  margin-right: 1em;
+  margin-left: 1em;
+  top:150px;
+  border: 1px solid black;
+  background-color: rgb(255, 112, 77);
+  visibility: hidden;
+}
+
+#continue{
+  visibility: hidden;
+  border-width:2px;
+  border-style:groove;
+  border-color: blue;
+  color: black;
+  background-color: #ffb399;
+  font-size: .8em;
+  font-weight: bold;
+}
+
+#gameO{
+  position: absolute;
+  right: 15em;
+  top: 52%;
+  visibility: hidden;
+  height: 80px;
+  width: 150px;
+}
+
+#cross{
+  height: auto;
+  width: auto;
+}
+
+#shield{
+  visibility: hidden;
+  background-color: #d9d9d9;
+  color: #ff6600;
+  font-weight: bold;
+  background-image: url(shield1.png);
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-position: center;
+  height: 60px;
+  width: 90px;
+  border: 5px solid black;
+  border-radius: 0.5em;
+  margin-right: 1em;
+}
+
+#xp{
+position: fixed;
+right: 0;
+top:50px;
+border: 1px dotted blue;
+background-color: gold;
+border-radius: 0.5em;
+padding:5px;
+visibility: hidden;
+z-index: 100;
+}
+
+#playerL{
+  visibility: hidden;
+  position: absolute;
+  right: 30%;
+  top:0;
+  font-size: 1.2em;
+  height: 100px;
+  width: 300px;
+  background-color: #e0ebeb;
+}
+
+#useItem{
+  visibility: hidden;
+}
+
+#Inv{
+  visibility: hidden;
+}
+
+#title{
+  position: absolute;
+  top: 20%;
+  left:40%;
+  color:#00b3b3;
+  font-family: 'Inconsolata', monospace;
+  text-decoration: underline;
+  text-shadow: 2px 2px 1px #b3ffff;
+}
+
+#audio{
+  display: none;
+}
+
+#audioIntro{
+  display: none;
+}
+
+#audioLevel1{
+  display: none;
+}
+
+#audioLevel2{
+  display: none;
+}
+
+#hydraTune{
+  display: none;
+}
+
+#deadTune{
+  display: none;
+}
+
+#endTune{
+  display: none;
+}
+
+#inventoryinfo{
+  visibility: hidden;
+  border: 2px dotted red;
+  background-color: yellow;
+}
+
+#inventoryuse{
+  visibility: hidden;
+  border: 2px dotted lime;
+  background-color: blue;
+}
+
+#inventoryExceeded{
+  visibility: hidden;
+  border: 2px dotted lime;
+  background-color: red;
+}
+
+#GAME{
+  width: 1200px;
+  height: 400px;
+}
+
+h3{
+  font-family: 'Sniglet', cursive;
+  border:3px solid lime;
+  border-radius: .5em;
+  background: linear-gradient(to bottom, #33ccff 0%, #ffff99 100%);
+  padding: 5px;
+  text-align: center;
+}
+
+.InvC{
+  border: 1px dotted #990000;
+  padding: 2px;
+  font-family: 'Markazi Text', serif;
+  background-color: #b3f0ff;
+  visibility: hidden;
+}
+
+h2{
+  position: absolute;
+  bottom: 0;
+  right:0;
+  font-family: 'Satisfy', cursive;
+  font-size: 1.5em;
+  color: hsla(120, 100%, 15%, 0.6);
+  margin-right: 10px;
+}
+
+canvas{
+  transition: all 10s;
+}
+
+#wrapInputs{
+  position: absolute;
+  top:180px;
+  left:1em;
+  margin-bottom: .5em;
+  width: 500px;
+}
+
+#gameAholder{
+  position: absolute;
+  top:250px;
+  left:0;
+  margin-left: 1em;
+  width: 550px;
+  margin-bottom: 1em;
+}
+
+#wrapInventory{
+  position: absolute;
+  top:230px;
+  left:530px;
+  margin-left: 1em;
+  width: 250px;
+  margin-bottom: 1em;
+}
+
+#storybox {
+  position: absolute;
+  bottom:0;
+  left:30%;
+	height: 120px;
+	width: 500px;
+  vertical-align: middle;
+  /* line-height: 25px;   */
+  font-family: 'Margarine', cursive;
+  visibility: hidden;
+  animation-name: move;
+  animation-duration: 17s;
+  font-size: .9em;
+  animation-iteration-count: 6;
+  animation-direction: normal;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  align-content: center;
+  background-color: #cce6ff;
+  border-image-slice: 27 27 27 27;
+  border-image-width: 20px 20px 20px 20px;
+  border-image-outset: 0px 0px 0px 0px;
+  border-image-repeat: stretch stretch;
+  border-image-source: url("https://mdn.mozillademos.org/files/6007/border-image-1.png");
+  z-index: 300;
+}
+
+#storyC{
+  position: relative;
+  top:10%;
+}
+
+
+@keyframes move {
+    	0% {
+    		margin-bottom: -170px;
+    	}
+    	100% {
+    		margin-bottom: 670px;
+    	}
+    }
+
+#credits{
+  position: absolute;
+  bottom:0;
+  left:0;
+  border: 2px solid black;
+  border-radius: .8em;
+  width: 80px;
+  height:20px;
+  background-color: yellow;
+  padding: 5px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.creditsList{
+  position:absolute;
+  bottom:0%;
+  left:30%;
+  width: 500px;
+  height: 400px;
+visibility: hidden;
+border: 2px solid black;
+border-radius: .8em;
+background-color: #ff8080;
+z-index: 200;
+overflow-y: scroll;
+overflow-wrap: break-word;
+}
+
+.visible{
+  visibility: visible;
+}
+
+#endScore{
+  display: none;
+  position: absolute;
+  top:20%;
+  right:0;
+  width: 200px;
+  height: 300px;
+  background-color: #ccffcc;
+  border: 3px double black;
+  border-radius: .2em;
+  margin-right: 1em;
+}

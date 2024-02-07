@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title> Fight </title>
+
+<style>
+
+</style>
+
+</head>
+
+<body>
+
+  <div id="fightArena">
+
+  </div>
+
+  <div id="arena2">
+
+  </div>
+
+  <input id="attack" type="button" value="Attack">
+
+
+<script src="monsters.js">
+
+var arena=document.getElementById("fightArena");
+var arena2=document.getElementById("arena2");
+
+var attack=document.getElementById("attack");
+
+attack.addEventListener("click",result);
+
+
+function result() {
+  var damage1=Number(holder2.power)*(Math.random()+0.1);
+  var damage2=Number(player.power)*Math.random();
+  var enemyHealth=Number(holder2.health);
+  var remaining=enemyHealth-damage2;
+  if(remaining<=0){
+    arena.innerHTML="You slayed the monster";
+  } else{
+    arena.innerHTML="You dealt "+damage2+" damage to the monster. Monster has "+enemyHealth+" health points remaining.";
+    remaining1=playerHealth-damage1;
+    if(remaining1>=0){
+    arena2.innerHTML="Monster attacked you, you have "+remaining1+" health points remaining. Do you dare to attack again?";
+  } else{
+    arena2.innerHTML="Monster killed you! The great monster slayer has died";
+  }
+  }
+
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title> Monster hunter game </title>
+
+<style>
+
+#startG{
+  background-color: lime;
+  height: 80px;
+  width: 100px;
+  border-radius: 10px;
+  position: absolute;
+  top:40%;
+  left:40%;
+}
+
+.smallA{
+  width: 100px;
+  height: 100px;
+  background-color: aquamarine;
+  border: 1px solid black;
+  float: left;
+}
+
+.rule{
+  display: flex;
+  flex-direction: column;
+}
+
+img{
+  width: 50%;
+  height: 50%;
+  visibility:hidden;
+}
+
+#output{
+  margin: 1em;
+  background-color: silver;
+  font-size: 1.5em;
+  width: 200px;
+
+}
+
+#output2{
+  margin-left: 1em;
+  margin-bottom: 15px;
+  background-color: rgb(236, 255, 179);
+  font-size: 1.5em;
+  width: 150px;
+}
+
+#fightYN{
+  visibility: hidden;
+}
+
+#healthB{
+  visibility: hidden;
+  background-color: red;
+  height: 40px;
+  width: 200px;
+  border: 1px solid black;
+  position: absolute;
+  right: 0;
+  top:0;
+  border-radius: 20px;
+}
+
+p{
+  visibility: hidden;
+  position: absolute;
+  right: 210px;
+  top:0;
+}
+
+#attack{
+  visibility: hidden;
+}
+
+#wrapper{
+  border: 1px solid black;
+  background-color: rgb(255, 112, 77);
+  visibility: hidden;
+}
+
+#continue{
+  visibility: hidden;
+}
+
+#gameO{
+  position: absolute;
+  right: 15em;
+  top: 52%;
+  visibility: hidden;
+  height: 80px;
+  width: 150px;
+}
+
+#cross{
+  height: auto;
+  width: auto;
+}
+
+#shield{
+  visibility: hidden;
+}
+
+#xp{
+position: absolute;
+right: 0;
+top:50px;
+border: 1px dotted blue;
+background-color: gold;
+border-radius: 0.5em;
+padding:5px;
+visibility: hidden;
+}
+
+#playerL{
+  visibility: hidden;
+  position: absolute;
+  right: 30%;
+  top:0;
+  font-size: 1.2em;
+  height: 100px;
+  width: 300px;
+  background-color: #e0ebeb;
+}
+
+#useItem{
+  visibility: hidden;
+}
+
+#Inv{
+  position: absolute;
+  left:0;
+  top:45%;
+  visibility: hidden;
+}
+
+/* .InvC{
+  visibility: hidden;
+} */
+
+.visible{
+  visibility: visible;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
+#title{
+  position: absolute;
+  top: 20%;
+  left:40%;
+  color:#00b3b3;
+  font-family: 'Inconsolata', monospace;
+  text-decoration: underline;
+  text-shadow: 5px 5px 2px #b3ffff;
+}
+
+#audio{
+  display: none;
+}
+
+#inventoryinfo{
+  position: absolute;
+  left:0;
+  top:65%;
+  visibility: hidden;
+  border: 2px dotted red;
+  background-color: yellow;
+}
+
+#inventoryuse{
+  position: absolute;
+  left:0;
+  top:75%;
+  visibility: hidden;
+  border: 2px dotted lime;
+  background-color: blue;
+}
+
+#inventoryExceeded{
+  position: absolute;
+  left:0;
+  top:85%;
+  visibility: hidden;
+  border: 2px dotted lime;
+  background-color: red;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+  <audio src="shaker-analog.wav" id="audio">
+
+  </audio>
+
+  <div id="output">
+
+  </div>
+
+  <div id="output2">
+
+  </div>
+
+  <input id="fightYN" type="text">
+  <input id="shield" type="text">
+  <input id="useItem" type="text">
+
+  <input id="startG" type="button" value="Start Game">
+
+  <div id="gameA" class="Rule">
+
+  </div>
+
+    <p>Health</p><div id="healthB">
+
+  </div>
+
+  <div id="wrapper">
+
+
+  <div id="fightArena">
+
+  </div>
+
+  <div id="arena2">
+
+  </div>
+
+  <input id="attack" type="button" value="Attack">
+  <input id="continue" type="button" value="Continue">
+  </div>
+
+<div id="gameO">
+  <img src="unnamedS.jpg" id="cross">
+</div>
+
+<div id="xp"></div>
+
+<div id="playerL">
+
+</div>
+
+<div id="Inv">
+  <h3>Inventory</h3>
+  <div class="InvC">
+
+  </div>
+</div>
+
+<div id="inventoryinfo">
+
+</div>
+
+<div id="inventoryuse">
+
+</div>
+
+<div id="inventoryExceeded">
+
+</div>
+
+<h1 id="title">MONSTER HUNTER</h1>
+
+<script>
+
+//PLANS
+//1. add enemy pics 2. add dodge effects 3. add shield effects 4. add cross when P dies 5. add health potions 6. add shield fix 7. add inventory (dropdown) 8. add enemy health bar 9. display enemy stats
+
+
+//ELEMENTS
+
+var startbtn=document.getElementById("startG");
+
+var expP=document.getElementById("xp");
+
+var shield=document.getElementById("shield");
+
+var audio=document.getElementById("audio");
+var gameA=document.getElementById("gameA");
+var inventoryinfo=document.getElementById("inventoryinfo");
+var inventoryuse=document.getElementById("inventoryuse");
+var inventoryExceeded=document.getElementById("inventoryExceeded");
+var wrapper=document.getElementById("wrapper");
+var titleG=document.getElementById("title");
+var fight=document.getElementById("fightYN");
+var Inv=document.getElementById("Inv");
+var InvC=document.querySelector(".InvC");
+var cross=document.getElementById("cross");
+
+var gameO=document.getElementById("gameO");
+
+var health=document.getElementById("healthB");
+var hText=document.querySelector('P');
+
+var output=document.getElementById("output");
+var output2=document.getElementById("output2");
+var arena=document.getElementById("fightArena");
+var arena2=document.getElementById("arena2");
+
+var attack=document.getElementById("attack");
+var continueG=document.getElementById("continue");
+
+//ELEMENTS ENDS
+
+
+//VARIABLES
+
+var live=true;
+var holderPower;
+var round=0;
+var count=0;
+var xp=0;
+var dummyInventory2=[];
+var InLenHolder;
+var holderEnemyH=true;
+var eventTargetHolder;
+var images="";
+var imagesEnemies="";
+var holder;
+var holder2;
+var holderEnePic;
+var enemyHealth;
+var visit=false;
+var playerHealth;;
+var remaining;
+
+var inventory=[];
+var firstRound=0;
+var level2=false;
+var level3=false;
+var level4=false;
+var level5=false;
+var level6=false;
+
+var levelHolder;
+
+//VARIABLES END
+
+
+//EVENT LISTENERS
+
+attack.addEventListener("click",result);
+
+startbtn.addEventListener("click",buildB);
+
+useItem.onmouseover=function(){
+  useItem.title="type item's name(inventory name) and press enter";
+}
+
+useItem.onclick=function(){
+  useItem.value="";
+}
+
+useItem.onchange=Items;
+
+// Inv.addEventListener("click",function(){//USE IF THE OTHER OPTION DOESN*T WORK
+//   if(inventory.length==0){
+//     InvC.innerHTML="Empty";
+//   } else{
+//   var html="";
+//   for (var i = 0; i < inventory.length; i++) {
+//     html +=inventory[i].name+", ";
+//   }
+//   InvC.innerHTML=html;
+// }
+//   InvC.classList.toggle("visible");
+// })
+
+Inv.addEventListener("click",inventoryShow);
+
+function inventoryShow(){//USE IF THE OTHER OPTION DOESN*T WORK
+  if(inventory.length==0){
+    InvC.innerHTML="Empty";
+  } else{
+  var html="";
+  var dummyInventory=[];
+  for (var i = 0; i < inventory.length; i++) {
+    html +=inventory[i].name+", ";
+    dummyInventory.push(inventory[i].name);
+  }
+  InvC.innerHTML=html;
+  dummyInventory2=dummyInventory.slice();
+}
+  if(InvC.style.visibility=="hidden"){
+  InvC.style.visibility="visible";
+} else{
+  InvC.style.visibility="hidden";
+}
+}
+
+Inv.onmouseover=function(){
+  if(!InvC.classList.contains("visible")){
+      Inv.title="Click to open";
+  }else{
+    Inv.title="Click to close";
+  }
+}
+
+fight.onmouseover=function(){
+  fight.title="Fight?";
+}
+
+//EVENT LISTENERS ENDS
+
+
+//PLAYER AND MONSTERS
+var player={name: "Monster hunter",maxHealth:100,power:20,shield:5,shieldUse:2,dodge:2,level:1};
+
+var monsters=[
+  {name: "Goblin",health:15,power:7,shield:2,shieldUse:2,xp:5,dodge:5},
+  {name: "Orc",health:30,power:15,shield:3,shieldUse:1,xp:12,dodge:1.1},
+  {name: "Bigfoot",health:20,power:10,shield:0,shieldUse:0,xp:10,dodge:1.2},
+  {name: "Dragon",health:40,power:12,shield:0,shieldUse:0,xp:18,dodge:3}
+];
+
+var monsterImg=["goblin1.png","orc1.png","bigfoot2.png","dragon1.png"];
+
+//PLAYER AND MONSTERS ENDS
+
+//ITEMS
+
+var potion={name:"potion",use:30};
+
+var potionBig={name:"potionBig",use:15};
+
+var shieldRepair={name:"shieldRepair",use:2};
+
+var powerPotion={name:"Powerpotion",use:5};
+
+//ITEMS ENDS
+
+
+//FUNCTIONS START
+
+
+//RESULT OF THE ATTACK
+function result() {
+
+  //ADD SOUND
+
+  audio.play();
+  audio.loop = false;
+
+  //CLEAR OLD
+  arena.innerHTML="";
+  arena2.innerHTML="";
+  var dodged1="";
+  var dodged2="";
+
+  //RANDOMS
+  var damage1=Number(holder2.power)*(Math.random()+0.1);
+  var damage2=Number(player.power)*Math.random();
+  var dodgeEnemy=holder2.dodge*Math.random();
+  var dodgePlayer=player.dodge*Math.random();
+
+  //SHIELD AND DODGE
+  if(shield.value=="Y" && player.shieldUse>0){
+    damage1=damage1-(Math.random()*player.shield);
+    player.shieldUse--;
+    if(dodgePlayer>3){
+      damage2=0;
+      dodged="(dodged)";
+    }
+    if(damage1<0){
+      damage1=0;
+    }
+  }
+  if(holder2.shieldUse>0){
+    damage2=damage2-(Math.random()*holder2.shield);
+    holder2.shieldUse--;
+    if(dodgeEnemy>2){
+      damage2=0;
+      dodged2="(dodged)";
+    }
+    if(damage2<0){
+      damage2=0;
+    }
+  }
+
+//HOLDERS
+  if(holderEnemyH==true){
+  enemyHealth=Number(holder2.health);
+}
+if(holderEnemyH){
+remaining=enemyHealth-damage2;
+} else{
+  remaining=remaining-damage2;
+}
+
+  holderEnemyH=false;
+
+//VICTORY MESSAGE
+  if(remaining<=0){
+    arena.innerHTML="You slayed the monster!!";
+    attack.style.visibility="hidden";
+
+    //DISABLING GAME AREA FROM FURTHER VISIT
+    eventTargetHolder.dataset.play="false";//THIS
+    eventTargetHolder.style.backgroundColor="red";//THIS
+
+    var count=0;
+    var testing=document.querySelectorAll(".smallA");
+    //GAME OVER CHECK
+    for (var i = 0; i < 8; i++) {
+      if(testing[i].dataset.play=="false"){
+        count++;
+      }
+    }
+
+    if(count<testing.length){
+    continueG.style.visibility="visible";
+    continueG.onclick=function(){
+      arena.innerHTML="";
+      arena2.innerHTML="";
+      holderEnemyH=true;
+      continueG.style.visibility="hidden";
+      attack.style.visibility="hidden";
+      wrapper.style.visibility="hidden";
+      xp +=holder2.xp;
+      expP.innerHTML="XP-points "+xp;
+      levelUp();
+    }
+  } else{
+    alert("You have defeated all the monsters! World is forvever grateful.");
+  }
+  } else{
+    arena.innerHTML="You dealt "+damage2.toFixed(2)+" damage "+dodged2+" to the monster. Monster has "+remaining.toFixed(2)+" health points remaining.";
+
+
+    playerHealth=playerHealth-damage1;
+    healthB.style.background='linear-gradient(to right, red, white '+playerHealth+'%)';
+  }
+
+  //BATTLE CONTINUES
+    if(playerHealth>0 && remaining>0){
+      arena2.innerHTML="Monster attacked you and dealt "+damage1.toFixed(2)+" damage"+dodged1+" you have "+playerHealth.toFixed(2)+" health points remaining. Do you dare to attack again?";
+  }
+
+  //DEFEAT
+  if(playerHealth<=0 && arena.innerHTML!="You slayed the monster"){
+    gameO.style.visibility="visible";
+    cross.style.visibility="visible";
+
+
+    arena2.innerHTML="Monster killed you! The great monster slayer has died. Who is going to save us now?!";
+
+    live=false;
+    attack.style.display="none";
+
+
+  }
+  }
+
+
+//MONSTER APPEAR WHEN MOVING
+function monstersAppear(event) {
+  //CONDITIONS DECIDING WETHER OR NOT THE GAME CAN CONTINUE
+  if(live){
+
+  if(event.target.dataset.play=="true"){
+  event.target.children[0].style.visibility="visible";
+  event.target.children[1].style.visibility="visible";
+  if(round>=1){
+  holder.src=null;
+  // holderEnePic.src=null;
+  fightYN.value="";
+  shield.value="";
+  inventoryuse.innerHTML="";
+  inventoryuse.style.visibility="hidden";
+  // if(!inventoryinfo.innerHTML=="Inventory is full"){
+  inventoryinfo.innerHTML="";
+  inventoryinfo.style.visibility="hidden";
+  inventoryExceeded.innerHTML="";
+  inventoryExceeded.style.visibility="hidden";
+// }
+  if(holder.style.visibility=="visible"){
+    holder.style.visibility="hidden";
+    holderEnePic.style.visibility="hidden";
+  }
+}
+
+  //SELECTING MONSTER AND SETTING A HOLDER
+  var randomN1=Math.floor(Math.random()*monsters.length);
+
+  var drawMonster=monsters[randomN1];
+  holder2=drawMonster;
+  var moveP=images[event.target.id];
+  holder=moveP;
+  var selectEnemy=imagesEnemies[event.target.id];
+  var enemySrc=monsterImg[randomN1];
+  holderEnePic=selectEnemy;
+  // holderEnePic=enemySrc;
+  if(holderPower<player.power){
+    player.power=holderPower;
+  }
+
+  //DISPLAYING MONSTER AND SETTING UP A BATTLE
+  moveP.src="hunter1.png";//"p1.gif" is the original draft
+  selectEnemy.src=enemySrc;
+  output.innerHTML=drawMonster.name+" appeared";
+  output2.innerHTML="Fight "+drawMonster.name+"? (Y + enter)";
+  fightYN.style.visibility="visible";
+  fightYN.addEventListener("change",function(){
+    if(fightYN.value=="Y"){
+      attack.style.visibility="visible";
+      wrapper.style.visibility="visible";
+    }
+  })
+
+  if(round==0){
+    round++;
+  }
+
+  //ITEMS APPERANCE
+
+  if(event.target.dataset.visit=="false"){
+  if(inventory.length<5){
+  InLenHolder=inventory.length;
+  var potionProb=2*(Math.floor(Math.random()*10)+1);
+  var potionBigProb=2*(Math.floor(Math.random()*8)+1);
+  var shieldRepProb=2*(Math.floor(Math.random()*8)+1);
+  var powerPotProb=2*(Math.floor(Math.random()*8)+1);
+
+  if(potionProb>=14){
+    inventory.push(potion);
+    inventoryinfo.innerHTML +="You got a potion||";
+  }
+  if(potionBigProb>=14){
+    inventory.push(potionBig);
+    inventoryinfo.innerHTML +="You got a big potion||";
+  }
+  if(shieldRepProb>=14){
+    inventory.push(shieldRepair);
+    inventoryinfo.innerHTML +="You got a shield repair kit||";
+  }
+  if(powerPotProb>=14){
+    inventory.push(powerPotion);
+    inventoryinfo.innerHTML +="You got a power potion||";
+  }
+  if(inventory.length==5){
+  inventoryinfo.innerHTML +="Inventory is full";
+
+  }
+  if(InLenHolder<inventory.length){
+    inventoryinfo.style.visibility="visible";
+  }
+  inventoryShow();
+  if(inventory.length>5){
+    var howMany=inventory.length-5;
+    inventory.splice(inventory.length-howMany,howMany);
+    dummyInventory2.splice(dummyInventory2.indexOf('potion'),1);
+    inventoryShow();
+    inventoryExceeded.innerHTML="You exceeded your inventory capacity, latest item(s) were dropped.";
+    inventoryExceeded.style.visibility="visible";
+  }
+}
+event.target.dataset.visit="true";
+}
+
+  //DISABLING GAME AREA FROM FURTHER VISIT (MOVED TO RESULTS() FUNCTION SO THAT AREAS DON'T TURN RED BEFORE THE MONSTER IS DEFEATED, THIS IS NEEDED TO MAKE THE PASSING OF THE GAME LOGICAL)
+  //THIS CAUSED PROBLEMS: YOU CAN NOW CLICK THE SAME AREA TWICE CAUSING THE PLAYER AND ENEMY PICTURES DISSAPEARING AND CONSTANT RESUFFLING OF ENEMIES; TRYING TO FIGURE OUT WORKAROUND; REVERSE TO OLD WOULDN*T BE IDEAL EITHER; MARKED CODES THAT I CHANGE WITH "THIS"
+  // event.target.dataset.play="false";//THIS
+  // event.target.style.backgroundColor="red";//THIS
+
+  //THIS IS FOR SENDING EVENT TARGET DATA OVER TO RESULTS() FUNCTION
+  eventTargetHolder=event.target;//THIS
+}
+}
+}
+
+//BUILDING THE PLAY AREA AND INPUTS
+function buildB() {
+  playerHealth=player.maxHealth;
+  titleG.style.display="none";
+  Inv.style.visibility="visible";
+  InvC.style.visibility="hidden";
+  useItem.style.visibility="visible";
+  useItem.value="Insert item name + enter";
+  shield.style.visibility="visible";
+  shield.value="Use shield by typing Y";
+  shield.onclick=function(){
+    shield.value="";
+  }
+  shield.onmouseover=function(){
+    shield.title="Use shield by typing Y";
+  }
+  fightYN.value="";
+  startbtn.style.visibility="hidden";
+  for (var i = 0; i < 8; i++) {
+    var div=document.createElement("DIV");
+    div.classList.add("smallA");
+    div.id=i;
+    div.dataset.play="true";
+    div.dataset.visit="false";
+    div.addEventListener("click",monstersAppear);
+
+
+    gameA.appendChild(div);
+    var img=document.createElement("img");
+    img.classList.add("playerImg");
+    div.appendChild(img);
+    var imgEnemy=document.createElement("img");
+    imgEnemy.classList.add("enemy");
+    div.appendChild(imgEnemy);
+  }
+  images=document.querySelectorAll(".playerImg");
+  imagesEnemies=document.querySelectorAll(".enemy");
+  health.style.visibility="visible";
+  hText.style.visibility="visible";
+  expP.innerHTML="XP-points "+xp;
+  expP.style.visibility="visible";
+  alert("Monsters started to appear 10 years ago out of nothing. They are destroying and killing anything that gets into their way. A guild of monster hunters were formed to stop the monsters. You are one of the last members of the guild still standing, everyone is counting on you, good luck! KNOWN BUGS: Do not click the game areas twice in a row, working on a solution to prevent clicking twice in a row executing any code" );
+
+  gameA.onmousemove=function(){
+    if(count==0){
+        alert("Move to areas (click) where monsters have been spotted. Visit all the areas to advance.");
+        count++;
+      }
+    }
+}
+
+//ACTION WHEN LEVELING UP
+function levelUp() {
+
+  //STAT CHANGES
+  var levelHolder=player.level;
+
+  if(xp>30 && xp<90 && !level2){
+    player.maxHealth +=10;
+    player.level +=1;
+    level2=true;
+  }
+  if(xp>=90 && xp<180 && !level3){
+    player.maxHealth +=10;
+    player.power +=1;
+    player.shield +=1;
+    player.dodge +=1;
+    player.level +=1;
+    level3=true;
+  }
+  if(xp>=180 && xp<360 && !level4){
+    player.maxHealth +=10;
+    player.shieldUse +=2;
+    player.level +=1;
+    level4=true;
+  }
+  if(xp>=360 && xp<720 && !level5){
+    player.maxHealth +=10;
+    player.power +=2;
+    player.shield +=1;
+    player.dodge +=1;
+    player.level +=1;
+    level5=true;
+  }
+  if(xp>=720 && !level6){
+    player.maxHealth +=10;
+    player.power +=1;
+    player.shieldUse +=2;
+    player.shield +=0.5;
+    player.dodge +=0.5;
+    player.level +=1;
+    level6=true;
+  }
+
+  //DISPLAY MESSAGE IF LEVEL UP
+  if(levelHolder<player.level){
+    var keys=Object.keys(player);
+    var values=Object.values(player);
+    playerL.style.visibility="visible";
+    var html="";
+    for (var i = 1; i < keys.length; i++) {
+      html +=keys[i]+":"+values[i]+"|| ";
+    }
+  playerL.innerHTML="Level up, your stats: "+html;
+}
+}
+
+function Items() {
+
+  if(useItem.value=="potion"){
+    if(player.maxHealth<=playerHealth+potion.use){
+      playerHealth=player.maxHealth;
+      healthB.style.background="red";
+    } else{
+      playerHealth +=potion.use;
+      healthB.style.background='linear-gradient(to right, red, white '+playerHealth+'%)';
+    }
+    inventory.splice(dummyInventory2.indexOf('potion'),1);
+    dummyInventory2.splice(dummyInventory2.indexOf('potion'),1);
+    // inventoryShow();
+    inventoryuse.innerHTML="You used a potion: +"+potion.use+" health";
+    inventoryuse.style.visibility="visible";
+  }
+  if(useItem.value=="potionBig"){
+    if(player.maxHealth<=playerHealth+potionBig.use){
+      playerHealth=player.maxHealth;
+      healthB.style.background="red";
+    } else{
+      playerHealth +=potionBig.use;
+      healthB.style.background='linear-gradient(to right, red, white '+playerHealth+'%)';
+    }
+    inventory.splice(dummyInventory2.indexOf('potionBig'),1);
+    dummyInventory2.splice(dummyInventory2.indexOf('potionBig'),1);
+    // inventoryShow();
+    inventoryuse.innerHTML="You used a big potion: +"+potionBig.use+" health";
+    inventoryuse.style.visibility="visible";
+  }
+
+  if(useItem.value=="shieldRepair"){
+    player.shieldUse +=shieldRepair.use;
+    inventory.splice(dummyInventory2.indexOf('shieldRepair'),1);
+    dummyInventory2.splice(dummyInventory2.indexOf('shieldRepair'),1);
+    // inventoryShow();
+    inventoryuse.innerHTML="You used a shield repair kit: +"+shieldRepair.use+" to shieldUse";
+    inventoryuse.style.visibility="visible";
+  }
+  if(useItem.value=="Powerpotion"){
+    holderPower=player.power;
+    player.power +=powerPotion.use;
+    inventory.splice(dummyInventory2.indexOf('Powerpotion'),1);
+    dummyInventory2.splice(dummyInventory2.indexOf('Powerpotion'),1);
+    // inventoryShow();
+    inventoryuse.innerHTML="You used a power potion: +"+powerPotion.use+" to power (temporary)";
+    inventoryuse.style.visibility="visible";
+  }
+  inventoryShow();
+}
+
+
+
+
+</script>
+
+
+</body>
+
+</html>

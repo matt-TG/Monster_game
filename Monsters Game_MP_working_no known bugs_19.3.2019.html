@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title> Monster hunter game </title>
+
+<style>
+
+body{
+  background:url('startscreen.jpg') no-repeat;
+  background-size: 100%;
+}
+
+
+#startG{
+  background-color: lime;
+  height: 80px;
+  width: 100px;
+  border-radius: 10px;
+  border: 2px solid #000099;
+  position: absolute;
+  top:20%;
+  left:30%;
+}
+
+.smallA{
+  width: 100px;
+  height: 100px;
+  background-color: aquamarine;
+  border: 1px solid black;
+  float: left;
+}
+
+.rule{
+  display: flex;
+  flex-direction: column;
+}
+
+img{
+  width: 50%;
+  height: 50%;
+  visibility:hidden;
+}
+
+#wrapOutputs{
+  position: absolute;
+  top:0;
+  left:0;
+  margin: 1em;
+  width: 300px;
+}
+
+#output{
+  margin: 1em;
+  background-color: #990000;
+  font-size: 1.5em;
+  width: 200px;
+  font-family: 'Lobster', cursive;
+}
+
+#output2{
+  margin-left: 1em;
+  margin-bottom: 15px;
+  background-color: rgb(236, 255, 179);
+  font-size: 1.5em;
+  width: 100px;
+  font-family: 'Lobster', cursive;
+}
+
+#fightYN{
+  visibility: hidden;
+}
+
+#healthB{
+  visibility: hidden;
+  background-color: red;
+  height: 40px;
+  width: 200px;
+  border: 1px solid black;
+  position: fixed;
+  right: 0;
+  top:0;
+  border-radius: 20px;
+  z-index: 100;
+}
+
+p{
+  visibility: hidden;
+  position: fixed;
+  right: 210px;
+  top:0;
+  font-family: 'Permanent Marker', cursive;
+  font-size: .8em;
+  z-index: 100;
+}
+
+#attack{
+  visibility: hidden;
+  border-width:5px;
+  border-style:groove;
+  border-color: yellow;
+  color: black;
+  background-color: gold;
+  font-size: .8em;
+  font-weight: bold;
+}
+
+#wrapper{
+  position: absolute;
+  left: 820px;
+  margin-right: 1em;
+  margin-left: 1em;
+  top:150px;
+  border: 1px solid black;
+  background-color: rgb(255, 112, 77);
+  visibility: hidden;
+}
+
+#continue{
+  visibility: hidden;
+}
+
+#gameO{
+  position: absolute;
+  right: 15em;
+  top: 52%;
+  visibility: hidden;
+  height: 80px;
+  width: 150px;
+}
+
+#cross{
+  height: auto;
+  width: auto;
+}
+
+#shield{
+  visibility: hidden;
+}
+
+#xp{
+position: fixed;
+right: 0;
+top:50px;
+border: 1px dotted blue;
+background-color: gold;
+border-radius: 0.5em;
+padding:5px;
+visibility: hidden;
+z-index: 100;
+}
+
+#playerL{
+  visibility: hidden;
+  position: absolute;
+  right: 30%;
+  top:0;
+  font-size: 1.2em;
+  height: 100px;
+  width: 300px;
+  background-color: #e0ebeb;
+}
+
+#useItem{
+  visibility: hidden;
+}
+
+#Inv{
+  visibility: hidden;
+}
+
+#title{
+  position: absolute;
+  top: 20%;
+  left:40%;
+  color:#00b3b3;
+  font-family: 'Inconsolata', monospace;
+  text-decoration: underline;
+  text-shadow: 2px 2px 1px #b3ffff;
+}
+
+#audio{
+  display: none;
+}
+
+#inventoryinfo{
+  visibility: hidden;
+  border: 2px dotted red;
+  background-color: yellow;
+}
+
+#inventoryuse{
+  visibility: hidden;
+  border: 2px dotted lime;
+  background-color: blue;
+}
+
+#inventoryExceeded{
+  visibility: hidden;
+  border: 2px dotted lime;
+  background-color: red;
+}
+
+#GAME{
+  width: 1200px;
+  height: 800px;
+}
+
+h3{
+  font-family: 'Sniglet', cursive;
+  border:3px solid lime;
+  border-radius: .5em;
+  background: linear-gradient(to bottom, #33ccff 0%, #ffff99 100%);
+  padding: 5px;
+  text-align: center;
+}
+
+.InvC{
+  border: 1px dotted #990000;
+  padding: 2px;
+  font-family: 'Markazi Text', serif;
+  background-color: #b3f0ff;
+  visibility: hidden;
+}
+
+h2{
+  position: absolute;
+  bottom: 0;
+  right:0;
+  font-family: 'Satisfy', cursive;
+  font-size: 1.5em;
+  color: hsla(120, 100%, 15%, 0.6);
+}
+
+canvas{
+  transition: all 10s;
+}
+
+#wrapInputs{
+  position: absolute;
+  top:200px;
+  left:0;
+  margin-bottom: .5em;
+  width: 500px;
+}
+
+#gameAholder{
+  position: absolute;
+  top:250px;
+  left:0;
+  margin-left: 1em;
+  width: 550px;
+  margin-bottom: 1em;
+}
+
+/* made gameAholder to replace this, because I need to clear the contents of gameA once it gets too growded */
+/* #gameA{
+  position: absolute;
+  top:250px;
+  left:0;
+  margin-left: 1em;
+  width: 550px;
+  margin-bottom: 1em;
+} */
+
+#wrapInventory{
+  position: absolute;
+  top:230px;
+  left:530px;
+  margin-left: 1em;
+  width: 250px;
+  margin-bottom: 1em;
+}
+
+</style>
+
+</head>
+
+<body>
+
+  <div id="GAME">
+
+
+  <audio src="shaker-analog.wav" id="audio">
+
+  </audio>
+
+  <div id="wrapOutputs">
+
+  <div id="output">
+
+  </div>
+
+  <div id="output2">
+
+  </div>
+
+  </div>
+
+  <div id="wrapInputs">
+
+  <input id="fightYN" type="text">
+  <input id="shield" type="text">
+  <input id="useItem" type="text">
+
+  </div>
+
+  <input id="startG" type="button" value="Start Game">
+
+  <div id="gameAholder">
+
+  <div id="gameA" class="Rule">
+
+  </div>
+
+  </div>
+
+    <p>Health</p><div id="healthB">
+
+  </div>
+
+  <div id="wrapper">
+
+
+  <div id="fightArena">
+
+  </div>
+
+  <div id="arena2">
+
+  </div>
+
+  <input id="attack" type="button" value="ATTACK">
+  <input id="continue" type="button" value="Continue">
+
+  </div>
+
+<div id="gameO">
+  <img src="unnamedS.png" id="cross">
+</div>
+
+<div id="xp"></div>
+
+<div id="playerL">
+
+</div>
+
+<div id="wrapInventory">
+
+<div id="Inv">
+  <h3>Inventory</h3>
+  <div class="InvC">
+
+  </div>
+</div>
+
+<div id="inventoryinfo">
+
+</div>
+
+<div id="inventoryuse">
+
+</div>
+
+<div id="inventoryExceeded">
+
+</div>
+
+</div>
+
+</div>
+
+<h1 id="title">MONSTER HUNTER</h1>
+
+  <h2 id="cc">&copy; MP- all rights reserved 2019</h2>
+
+    <canvas id="canvas" width="300" height="300"></canvas>
+
+
+<script>
+
+window.onload=function(){
+  startbtn.addEventListener("click",buildB);
+}
+
+//14-16.3.2019:Made healtbar and xp position:fixed, player and enemy stats updating on the fly, Gamearea size increases when
+//more playareas appear-elements move downwards, inventory dropdown toggle is no longer attached to showInventory() function,
+//inventoryinfos clear when clicking inventory or attack, fixed bugs in dodge and levelUp(), styling to attack button,
+//styling to inventory elements, added canvas with animations, added background, added enemies, added inventoryCapacity,
+//added availableItems, added itemsInArea etc.
+
+//17.3: moved around elements with position:absolute, prevented moving to another area while in the middle of a fight,
+//healtbar shows health onmouseover
+
+//PLANS
+//  2. Add backgrounds? 4. Give more info on items
+//  6. Add tutorial (certain pop ups or hovering texts will show if tutorial value is true)
+//8. make leaderboard with localStorage 9. Add enemies: vampire (if player doesn't have garlic then the damage is less)
+//10. add items (garlic (for vampires), speedpotion (for dodge), superstrenght(more power), ...)
+//11. More values to player and enemies? 12. create level (for example layers that are hidden but will appear when you move on
+//while previous level will be hidden. Other option is to remove old elements and insert new ones.
+
+//TO DO: 1. fix bugs (see txt file) 2. add plans
+
+//ELEMENTS
+
+var startbtn=document.getElementById("startG");
+
+var expP=document.getElementById("xp");
+var wrapInputs=document.getElementById("wrapInputs");
+var wrapInventory=document.getElementById("wrapInventory");
+var wrapOutputs=document.getElementById("wrapOutputs");
+var shield=document.getElementById("shield");
+var gameAREA=document.getElementById("GAME");
+var audio=document.getElementById("audio");
+var gameA=document.getElementById("gameA");
+var inventoryinfo=document.getElementById("inventoryinfo");
+var inventoryuse=document.getElementById("inventoryuse");
+var inventoryExceeded=document.getElementById("inventoryExceeded");
+var wrapper=document.getElementById("wrapper");
+var titleG=document.getElementById("title");
+var fight=document.getElementById("fightYN");
+var Inv=document.getElementById("Inv");
+var InvC=document.querySelector(".InvC");
+var cross=document.getElementById("cross");
+
+var gameO=document.getElementById("gameO");
+
+var health=document.getElementById("healthB");
+var hText=document.querySelector('P');
+
+var output=document.getElementById("output");
+var output2=document.getElementById("output2");
+var arena=document.getElementById("fightArena");
+var arena2=document.getElementById("arena2");
+
+var attack=document.getElementById("attack");
+var continueG=document.getElementById("continue");
+
+//ELEMENTS ENDS
+
+
+//VARIABLES
+
+var inventoryCapacity=5;
+var itemsInArea=8;
+var removeArena;
+var live=true;
+var holderPower;
+var round=0;
+var count=0;
+var xp=0;
+var dummyInventory2=[];
+var InLenHolder;
+var holderEnemyH=true;
+var eventTargetHolder;
+var images="";
+var imagesEnemies="";
+var holder;
+var holder2;
+var holderEnePic;
+var enemyHealth;
+var visit=false;
+var playerHealth;
+var remaining;
+var arenaEnemy;
+var inventory=[];
+var firstRound=0;
+var level2=false;
+var level3=false;
+var level4=false;
+var level5=false;
+var level6=false;
+var availableItems=0;
+var levelHolder;
+var holderFArea;
+var eventTargetHolderID;
+var builderR=0;
+var canvasCreation=0;
+var ctx;
+var canvas;
+var damageAnimation;
+var holdArenaPlayer;
+var pD;
+var glevel1=true;
+var glevel2=false;
+var glevel1MID=false;
+var glevel2MID=false;
+var gOver=false;
+var progress=0;
+
+//VARIABLES END
+
+
+//EVENT LISTENERS
+
+attack.addEventListener("click",result);
+
+
+useItem.onmouseover=function(){
+  useItem.title="type item's name(inventory name) and press enter";
+}
+
+useItem.onclick=function(){
+  useItem.value="";
+}
+
+useItem.onchange=Items;
+
+Inv.addEventListener("click",iventoryToggle);
+
+function iventoryToggle() {
+  if(InvC.style.visibility=="hidden"){
+  InvC.style.visibility="visible";
+} else{
+  InvC.style.visibility="hidden";
+}
+if(inventoryinfo.style.visibility=="visible" || inventoryuse.style.visibility=="visible" || inventoryExceeded.style.visibility=="visible"){
+inventoryinfo.style.visibility="hidden";
+inventoryuse.style.visibility="hidden";
+inventoryExceeded.style.visibility="hidden";
+}
+}
+
+function inventoryShow(){//USE IF THE OTHER OPTION DOESN*T WORK
+  if(inventory.length==0){
+    InvC.innerHTML="Empty";
+  } else{
+  var html="";
+  var dummyInventory=[];
+  for (var i = 0; i < inventory.length; i++) {
+    html +=inventory[i].name+", ";
+    dummyInventory.push(inventory[i].name);
+  }
+  InvC.innerHTML=html;
+  dummyInventory2=dummyInventory.slice();
+}
+}
+
+Inv.onmouseover=function(){
+  if(InvC.style.visibility=="hidden"){
+      Inv.title="Click to open";
+  }else{
+    Inv.title="Click to close";
+  }
+}
+
+fight.onmouseover=function(){
+  fight.title="Fight?";
+}
+
+//EVENT LISTENERS ENDS
+
+
+//PLAYER AND MONSTERS
+var player={name: "Monster hunter",maxHealth:100,power:20,shield:5,shieldUse:2,dodge:2,level:1};
+
+var monsters=[
+  {name: "Goblin",health:15,power:7,shield:2,shieldUse:2,xp:7,dodge:3.5},//15
+  {name: "Orc",health:30,power:15,shield:3,shieldUse:1,xp:12,dodge:1.1},//30
+  {name: "Bigfoot",health:20,power:10,shield:0,shieldUse:0,xp:10,dodge:1.2},//20
+  {name: "Dragon",health:40,power:12,shield:0,shieldUse:0,xp:18,dodge:2.7}//40
+];
+
+var monsterImg=["goblin1.png","orc1.png","bigfoot2.png","dragon1.png"];
+
+//PLAYER AND MONSTERS ENDS
+
+//ITEMS
+
+var potion={name:"potion",use:10};
+
+var potionBig={name:"potionBig",use:20};
+
+var shieldRepair={name:"shieldRepair",use:2};
+
+var powerPotion={name:"Powerpotion",use:7};
+
+//ITEMS ENDS
+
+
+//FUNCTIONS START
+
+
+//RESULT OF THE ATTACK
+function result() {
+
+  if(eventTargetHolder.dataset.play=="true"){
+
+    //ADD SOUND
+
+    audio.play();
+    audio.loop = false;
+
+    //CLEAR OLD
+    arena.innerHTML="";
+    arena2.innerHTML="";
+    var dodged1="";
+    var dodged2="";
+
+    //CLEARING INVENTORYINFOS
+    if(inventoryinfo.style.visibility=="visible" || inventoryuse.style.visibility=="visible" || inventoryExceeded.style.visibility=="visible"){
+    inventoryinfo.style.visibility="hidden";
+    inventoryuse.style.visibility="hidden";
+    inventoryExceeded.style.visibility="hidden";
+    }
+
+    //RANDOMS
+    var damage1=Number(holder2.power)*(Math.random()/2);//the damage enemy does//originally I had Math.random()+0.1
+    var damage2=Number(player.power)*Math.random();//the damage player does
+    var dodgeEnemy=holder2.dodge*Math.random();
+    var dodgePlayer=player.dodge*Math.random();
+
+    //SHIELD AND DODGE
+
+    //PLAYER SHIELD EFFECT
+    if(shield.value.toUpperCase()=="Y" && player.shieldUse>0){
+      damage1=damage1-(Math.random()*player.shield);
+      player.shieldUse--;
+      if(damage1<0){
+        damage1=0;
+      }
+    }
+
+    //PLAYER DODGE EFFECT
+    if(dodgePlayer>3){
+      damage1=0;
+      dodged1="(dodged)";
+    }
+
+
+    //ENEMY SHIELD EFFECT
+    if(holder2.shieldUse>0){
+      damage2=damage2-(Math.random()*holder2.shield);
+      holder2.shieldUse--;
+      if(damage2<0){
+        damage2=0;
+      }
+    }
+
+    //FOR ENEMY DODGE
+    if(dodgeEnemy>2){
+      damage2=0;
+      dodged2="(dodged)";
+    }
+
+    //SHIELD AND DODGE ENDS
+
+    //CANVAS FOR DAMAGE ANIMATION
+    if(canvasCreation==0){
+    canvas=document.getElementById("canvas");
+    ctx=canvas.getContext("2d");
+    canvas.width=300;
+    canvas.height=300;
+
+    canvas.style.position="absolute";
+    canvas.style.top="47%";
+    canvas.style.right="10%";
+    canvas.style.zIndex="10";
+    canvasCreation++;
+
+      //IF ENEMY DO NOT DODGE
+      if(dodged2!="(dodged)" && damage2>0){
+      ctx.beginPath();
+      ctx.moveTo(270,180);
+      ctx.lineTo(180,290);
+      ctx.strokeStyle="red";
+      ctx.lineWidth=3;
+      ctx.lineCap="round";
+      ctx.stroke();
+      damageAnimation=setTimeout(clearCanvas,600);
+      }
+    }
+
+    if(canvasCreation>=1 && dodged2!="(dodged)" && damage2>0){
+    ctx.clearRect(0,0,canvas.width,canvas.height);//for clearing canvas
+    ctx.beginPath();
+    ctx.moveTo(270,180);
+    ctx.lineTo(180,290);
+    ctx.strokeStyle="red";
+    ctx.lineWidth=3;
+    ctx.lineCap="round";
+    ctx.stroke();
+    damageAnimation=setTimeout(clearCanvas,650);
+    }
+
+    //CANVAS FOR DAMAGE ANIMATION ENDS
+
+
+    //HOLDERS
+    if(holderEnemyH==true){
+    enemyHealth=Number(holder2.health);
+    }
+
+    if(holderEnemyH){
+      remaining=enemyHealth-damage2;
+    } else{
+    remaining=remaining-damage2;
+    }
+
+    holderEnemyH=false;
+
+    //PLAYER DAMAGE ANIMATION
+    if(damage1>0 && remaining>0){
+      holdArenaPlayer.style.backgroundColor="red";
+      holdArenaPlayer.style.opacity="0.3";
+      pD=setTimeout(playerDama, 400);
+    }
+
+
+    //VICTORY MESSAGES
+
+    if(remaining<=0){//1
+
+    arena.innerHTML="You slayed the monster!!";
+    attack.style.visibility="hidden";
+
+    //ADD DEAD Animation
+    clearTimeout(damageAnimation);
+    ctx.beginPath();
+    ctx.moveTo(270,180);
+    ctx.lineTo(180,290);
+    ctx.strokeStyle="red";
+    ctx.lineWidth=3;
+    ctx.lineCap="round";
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(180,180);
+    ctx.lineTo(270,290);
+    ctx.strokeStyle="red";
+    ctx.lineWidth=3;
+    ctx.lineCap="round";
+    ctx.stroke();
+
+    //REMOVE ENEMY FROM THE PLAYAREA WHEN DEAD
+    holderEnePic.style.visibility="hidden";//THIS
+
+    //DISABLING GAME AREA FROM FURTHER VISIT
+    eventTargetHolder.dataset.play="false";//THIS
+    eventTargetHolder.style.backgroundColor="red";//THIS
+
+    //CHECKING IF AREA IS CLEARED AND ADVANCING
+
+    var count2=0;
+    var testing=document.querySelectorAll(".smallA");
+
+    for (var i = 0; i < testing.length; i++) {
+      if(testing[i].dataset.play=="false"){
+        count2++;
+      }
+    }
+
+      if(count2<testing.length){//2
+        continueG.style.visibility="visible";
+        continueG.onclick=function(){
+          arena.innerHTML="";
+          arena2.innerHTML="";
+          holderEnemyH=true;
+          continueG.style.visibility="hidden";
+          attack.style.visibility="hidden";
+          wrapper.style.visibility="hidden";
+          xp +=holder2.xp;
+          expP.innerHTML="XP-points "+xp;
+          levelUp();
+          // removeArena.remove();
+          clearCanvas();
+          document.getElementById('fightArena2').style.visibility="hidden";
+          document.getElementById('ArenaEnemy').style.visibility="hidden";
+          holdArenaPlayer.style.visibility="hidden";
+        }
+        if(count2==15 && glevel2MID==true){
+          var hydra={name: "Hydra",health:100,power:30,shield:5,shieldUse:10,xp:100,dodge:3.6};//100
+          monsters=[];
+          monsters.push(hydra);
+          monsterImg=[];
+          monsterImg.push("hydra1.png");
+          alert("There is only one monster standing and it's a big one. The people are counting on you, good luck!")
+        }
+      }//2
+
+      else {//3-pair to 2
+
+       progress++;
+
+      if(glevel1MID==false){
+        glevel1MID=true;
+        glevel1=false;
+      }
+
+      if(progress==2){
+      if(glevel1MID==true && glevel2==false){
+        glevel2=true;
+        glevel1MID=false;
+      }
+      }
+      if(progress==3){
+      if(glevel2==true && glevel2MID==false){
+        glevel2MID=true;
+        glevel2=false;
+      }
+      }
+
+      if(progress==4){
+      if(glevel2MID==true && count2==testing.length){
+        glevel2MID==false;
+        gOver=true;
+      }
+      }
+
+        if((count2<16 && glevel1MID==true) || (count2<16 && glevel2MID==true)){//4
+
+          alert("You have defeated all the monsters in the area! The job is not over yet, new reports of the monsters in the area have arrived. There are new enemies to watch out! Resting has revived some of your health.");
+
+          addLevels();
+
+          //ADDING FUNCTIONALITY OF CONTINUEG BECAUSE CONTINUE BUTTON DOESN'T APPEAR WHEN THE WHOLE AREA IS CLEARED
+          arena.innerHTML="";
+          arena2.innerHTML="";
+          holderEnemyH=true;
+          continueG.style.visibility="hidden";
+          attack.style.visibility="hidden";
+          wrapper.style.visibility="hidden";
+          xp +=holder2.xp;
+          expP.innerHTML="XP-points "+xp;
+          levelUp();
+          // removeArena.remove();
+
+          //MAKE HOLDERS FOR THESE TO MAKE THE CODE SHORTER
+          document.getElementById('fightArena2').style.visibility="hidden";
+          document.getElementById('ArenaEnemy').style.visibility="hidden";
+          holdArenaPlayer.style.visibility="hidden";
+          clearCanvas();
+
+        //ADD NEW MONSTERS
+        if(glevel1MID==true){
+        var giant={name: "Giant",health:45,power:13,shield:2,shieldUse:2,xp:22,dodge:2};//45
+        var werewolf={name: "Werewolf",health:35,power:13,shield:2,shieldUse:5,xp:26,dodge:3.5};//35
+        monsters.push(giant);
+        monsters.push(werewolf);
+        monsterImg.push("giant1.png");
+        monsterImg.push("werewolf1.png");
+        }
+
+        if(glevel2MID==true){
+          var golem={name: "Golem",health:52,power:25,shield:4,shieldUse:4,xp:40,dodge:2.1};//52
+          var zombie={name: "Zombie",health:65,power:10,shield:2,shieldUse:1,xp:30,dodge:2.1};//65
+          var cyclops={name: "Cyclops",health:48,power:16,shield:3,shieldUse:3,xp:35,dodge:2.5};//48
+          monsters.push(golem);
+          monsters.push(zombie);
+          monsters.push(cyclops);
+          monsterImg.push("golem1.png");
+          monsterImg.push("zombie1.png");
+          monsterImg.push("cyclops1.png");
+        }
+
+          //MORE ITEMS TO BE FOUND
+          itemsInArea=itemsInArea+8;
+          playerHealth=playerHealth+50;
+
+          //EXTRA HEALTH FOR RESTING BEFORE ADVANCING
+          if(playerHealth>=player.maxHealth){
+            playerHealth=player.maxHealth;
+            health.style.background="red";
+          } else{
+          health.style.background='linear-gradient(to right, red, white '+playerHealth+'%)';
+        }
+      }//4
+
+        //MOVE TO LEVEL 2
+        if(glevel2==true){
+          alert("Monsters are advancing to the last fortress of human kind. Do whatever needs to be done to stop them! Health restored by 50hp by resting.");
+
+          //REMOVE OLD PLAY AREAS
+          gameA.parentNode.removeChild(gameA);
+          var createNewgameA=document.createElement("div");
+          createNewgameA.id="gameA";
+          gameAholder.appendChild(createNewgameA);
+          gameA=document.getElementById("gameA");
+
+          //CHANGE BACKGROUND AND FIGHTARENA BACKGROUND
+          document.querySelector("body").style.background="url('level2_back.jpg') no-repeat";
+          document.getElementById("fightArena2").style.background="url('ruins.jpg') no-repeat";
+          document.getElementById("fightArena2").style.backgroundSize="cover";
+
+          //CREATE NEW AREAS
+          buildB();
+
+          //ADDING FUNCTIONALITY OF CONTINUEG BECAUSE CONTINUE BUTTON DOESN'T APPEAR WHEN THE WHOLE AREA IS CLEARED
+          arena.innerHTML="";
+          arena2.innerHTML="";
+          holderEnemyH=true;
+          continueG.style.visibility="hidden";
+          attack.style.visibility="hidden";
+          wrapper.style.visibility="hidden";
+          xp +=holder2.xp;
+          expP.innerHTML="XP-points "+xp;
+          levelUp();
+          // removeArena.remove();
+
+          //MAKE HOLDERS FOR THESE TO MAKE THE CODE SHORTER
+          document.getElementById('fightArena2').style.visibility="hidden";
+          document.getElementById('ArenaEnemy').style.visibility="hidden";
+          holdArenaPlayer.style.visibility="hidden";
+          clearCanvas();
+        //MORE ITEMS TO BE FOUND
+          itemsInArea=itemsInArea+8;
+          playerHealth=playerHealth+50;
+
+          //EXTRA HEALTH FOR RESTING BEFORE ADVANCING
+          if(playerHealth>=player.maxHealth){
+            playerHealth=player.maxHealth;
+            health.style.background="red";
+          } else{
+          health.style.background='linear-gradient(to right, red, white '+playerHealth+'%)';
+        }
+      }
+    }//else on row 771 (pair to //2)
+
+      //END GAME
+      if(gOver==true){
+        gameA.parentNode.removeChild(gameA);
+
+        holderEnemyH=true;
+        wrapInputs.style.visibility="hidden";
+        wrapInventory.style.visibility="hidden";
+        wrapOutputs.style.visibility="hidden";
+        attack.style.visibility="hidden";
+        continueG.style.visibility="visible";
+        Inv.style.visibility="hidden";
+        shield.style.visibility="hidden";
+        fight.style.visibility="hidden";
+        useItem.style.visibility="hidden";
+        xp +=holder2.xp;
+        expP.innerHTML="XP-points "+xp;
+        levelUp();
+
+        document.querySelector("body").style.background="url('GO.jpg') no-repeat";
+        document.querySelector("body").style.backgroundSize="cover";
+        alert("You are a true hero. The world has been swiped out of the horrible monsters! You will be remembered as a legend!");
+      }
+
+    //CHECKING IF AREA IS CLEARED AND ADVANCING ENDS
+
+
+  }//1
+  else{//if(playerHealth>0 && remaining>0): TESTING-return this if "else" doesn't work
+      arena.innerHTML="You dealt "+damage2.toFixed(2)+" damage "+dodged2+" to the monster. Monster has "+remaining.toFixed(2)+" health points remaining.";
+      playerHealth=playerHealth-damage1;
+      health.style.background='linear-gradient(to right, red, white '+playerHealth+'%)';
+
+      //DEFEAT
+      if(playerHealth<=0){
+        gameO.style.visibility="visible";
+        cross.style.visibility="visible";
+
+        arena2.innerHTML="Monster killed you! The great monster slayer has died. Who is going to save us now?!";
+        holder.style.visibility="hidden";//THIS
+
+        live=false;
+        attack.style.display="none";
+        clearCanvas();
+        document.getElementById('fightArena2').style.visibility="hidden";
+        document.getElementById('ArenaEnemy').style.visibility="hidden";
+        holdArenaPlayer.style.visibility="hidden";
+
+      }//above if statement ends
+      else {
+        arena2.innerHTML="Monster attacked you and dealt "+damage1.toFixed(2)+" damage"+dodged1+" you have "+playerHealth.toFixed(2)+" health points remaining. Do you dare to attack again?";
+      }
+    }
+
+
+
+
+  }//first if statement ends
+}//function ends
+
+
+
+
+//MONSTER APPEAR WHEN MOVING
+function monstersAppear(event) {
+if(wrapper.style.visibility=="hidden"){
+
+  //PREVENTING DOUBLE CLICK
+    if(round>=1){
+  var check= eventTargetHolderID==event.target.id? true:false;
+}
+
+  //CONDITIONS DECIDING WETHER OR NOT THE GAME CAN CONTINUE
+  if(live && !check){
+
+  if(event.target.dataset.play=="true"){
+  event.target.children[0].style.visibility="visible";
+  event.target.children[1].style.visibility="visible";
+
+  if(round>=1){
+  holder.src=null;
+  fightYN.value="";
+  shield.value="";
+  inventoryuse.innerHTML="";
+  inventoryuse.style.visibility="hidden";
+
+  inventoryinfo.innerHTML="";
+  inventoryinfo.style.visibility="hidden";
+  inventoryExceeded.innerHTML="";
+  inventoryExceeded.style.visibility="hidden";
+  playerL.style.visibility="hidden";
+  playerL.innerHTML="";
+
+  if(holder.style.visibility=="visible"){
+    holder.style.visibility="hidden";
+    holderEnePic.style.visibility="hidden";
+  }
+}
+
+  //SELECTING MONSTER AND SETTING A HOLDER
+  var randomN1=Math.floor(Math.random()*monsters.length);
+
+  //MONSTER WITH VALUES
+  var drawMonster=monsters[randomN1];
+  holder2=drawMonster;
+
+  //CHOOSING WHAT IMAGE INSIDE GAME AREAS (player)
+  var moveP=images[event.target.id];
+  holder=moveP;
+
+  //CHOOSING WHAT IMAGE INSIDE GAME AREAS (enemy)
+  var selectEnemy=imagesEnemies[event.target.id];
+  var enemySrc=monsterImg[randomN1];
+
+  //HOLDERS FOR OTHER FUNCTIONS TO USE
+  arenaEnemy=enemySrc;
+  holderEnePic=selectEnemy;
+
+  //RESETTING PLAYER POWER AFTER USING POWERPOTION
+  if(holderPower<player.power){
+    player.power=holderPower;
+  }
+
+  //DISPLAYING STATS
+  holder.onmouseover=displayStatsP;
+
+  holderEnePic.onmouseover=displayStatsE;
+
+
+  //DISPLAYING MONSTER AND SETTING UP A BATTLE
+  moveP.src="hunter1.png";//"p1.gif" is the original draft
+  selectEnemy.src=enemySrc;//SETTING A PICTURE INSIDE ENEMY PICTURE AREA
+  output.innerHTML=drawMonster.name+" appeared";
+  output2.innerHTML="Fight "+drawMonster.name+"?";
+  fightYN.style.visibility="visible";
+  fightYN.value="(y/Y + enter)";
+  fightYN.onclick=function(){
+    fightYN.value="";
+  }
+  fightYN.addEventListener("change",function(){
+    if(fightYN.value.toUpperCase()=="Y"){
+      if(eventTargetHolder.dataset.play=="true"){
+      attack.style.visibility="visible";
+      wrapper.style.visibility="visible";
+      buildFightArea();
+    }
+    }
+  })
+
+  if(round==0){
+    round++;
+  }
+
+  //ITEMS APPERANCE
+
+  if(event.target.dataset.visit=="false"){
+  if(inventory.length<inventoryCapacity && availableItems<itemsInArea){
+  InLenHolder=inventory.length;
+  var potionProb=2*(Math.floor(Math.random()*16)+1);
+  var potionBigProb=2*(Math.floor(Math.random()*20)+1);
+  var shieldRepProb=2*(Math.floor(Math.random()*20)+1);
+  var powerPotProb=2*(Math.floor(Math.random()*20)+1);
+
+  if(potionProb>=20){
+    inventory.push(potion);
+    inventoryinfo.innerHTML +="You got a potion||";
+    availableItems++;//SO THAT THERE IS A LIMIT HOW MUCH STUFF YOU CAN RECEIVE; OTHERWISE YOU WOULD ALWAYS CLEAR YOUR INVENTORY IN ORDER TO GET MORE STUFF
+  }
+  if(potionBigProb>=30){
+    inventory.push(potionBig);
+    inventoryinfo.innerHTML +="You got a big potion||";
+    availableItems++;
+  }
+  if(shieldRepProb>=30){
+    inventory.push(shieldRepair);
+    inventoryinfo.innerHTML +="You got a shield repair kit||";
+    availableItems++;
+  }
+  if(powerPotProb>=33){
+    inventory.push(powerPotion);
+    inventoryinfo.innerHTML +="You got a power potion||";
+    availableItems++;
+  }
+  if(inventory.length==inventoryCapacity){
+  inventoryinfo.innerHTML +="Inventory is full";
+
+  }
+  if(InLenHolder<inventory.length){
+    inventoryinfo.style.visibility="visible";
+  }
+  inventoryShow();
+  if(inventory.length>inventoryCapacity){
+    var howMany=inventory.length-inventoryCapacity;
+    inventory.splice(inventory.length-howMany,howMany);
+    dummyInventory2.splice(dummyInventory2.indexOf('potion'),1);
+    inventoryShow();
+    inventoryExceeded.innerHTML="You exceeded your inventory capacity, latest item(s) were dropped.";
+    inventoryExceeded.style.visibility="visible";
+    availableItems=availableItems-howMany;
+  }
+}
+event.target.dataset.visit="true";
+event.target.style.backgroundColor="#ffe0b3";
+}
+
+  //THIS IS FOR SENDING EVENT TARGET DATA OVER TO RESULTS() FUNCTION
+  eventTargetHolder=event.target;//THIS
+  eventTargetHolderID=event.target.id;
+}
+}
+}
+}//for the very first statement concerning if the wrapper is hidden (so that you can't move to another area in the middle of a fight)
+
+
+//BUILDING THE PLAY AREA AND INPUTS
+function buildB() {
+  if(glevel1==true || glevel2==true){
+    if(glevel2==false){
+  document.querySelector("body").style.background="url('wasteland3.jpg') no-repeat";
+  // document.querySelector("body").style.backgroundSize="100%";
+  document.querySelector("h2").style.visibility="hidden";
+  playerHealth=player.maxHealth;
+  titleG.style.display="none";
+  Inv.style.visibility="visible";
+  InvC.style.visibility="hidden";
+  useItem.style.visibility="visible";
+  useItem.value="Insert item name + enter";
+  shield.style.visibility="visible";
+  shield.value="Use shield by typing y/Y";
+  InvC.innerHTML="Empty";
+  wrapper.style.visibility="hidden";
+  shield.onclick=function(){
+    shield.value="";
+  }
+  shield.onmouseover=function(){
+    shield.title="Use shield by typing y/Y";
+  }
+  fightYN.value="";
+  startbtn.style.visibility="hidden";
+}
+
+  if(glevel1==true || (glevel2==true)){
+  for (var i = 0; i < 8; i++) {
+    var div=document.createElement("DIV");
+    div.classList.add("smallA");
+    div.id=i;
+    div.dataset.play="true";
+    div.dataset.visit="false";
+    div.dataset.prevent="I";
+    div.addEventListener("click",monstersAppear);
+    gameA.appendChild(div);
+
+    var img=document.createElement("img");
+    img.classList.add("playerImg");
+    div.appendChild(img);
+
+    var imgEnemy=document.createElement("img");
+    imgEnemy.classList.add("enemy");
+    div.appendChild(imgEnemy);
+  }
+
+  images=document.querySelectorAll(".playerImg");
+  imagesEnemies=document.querySelectorAll(".enemy");
+}
+
+  if(glevel2==false){
+  health.style.visibility="visible";
+  health.onmouseover=showHealth;
+  hText.style.visibility="visible";
+  expP.innerHTML="XP-points "+xp;
+  expP.style.visibility="visible";
+  alert("Monsters started to appear 10 years ago out of nothing. They are destroying and killing anything that gets into their way. A guild of monster hunters were formed to stop the monsters. You are one of the last members of the guild still standing, everyone is counting on you, good luck!");
+
+  gameA.onmousemove=function(){
+    if(count==0){
+        alert("Move to areas (click) where monsters have been spotted. Visit all the areas and kill the monsters to advance.");
+        count++;
+      }
+    }
+  }
+}
+}
+
+
+//ACTION WHEN LEVELING UP
+function levelUp() {
+
+  //STAT CHANGES
+  var levelHolder=player.level;
+
+  if(xp>30 && xp<90 && !level2){
+    player.maxHealth +=10;
+    player.level++;
+    player.power++;
+    level2=true;
+  }
+  if(xp>=90 && xp<180 && !level3){
+    player.maxHealth +=10;
+    player.power++;
+    player.shield++;
+    player.dodge++;
+    player.level++;
+    level3=true;
+    inventoryCapacity=inventoryCapacity+3;
+  }
+  if(xp>=180 && xp<360 && !level4){
+    player.maxHealth +=10;
+    player.shieldUse=player.shieldUse+2;
+    player.level++;
+    level4=true;
+  }
+  if(xp>=360 && xp<720 && !level5){
+    player.maxHealth +=10;
+    player.power=player.power+2;
+    player.shield++;
+    player.dodge++;
+    player.level++;
+    level5=true;
+  }
+  if(xp>=720 && !level6){
+    player.maxHealth +=10;
+    player.power++;
+    player.shieldUse=player.shieldUse+2;
+    player.shield=player.shield+0.5;
+    player.dodge=player.dodge+0.5;
+    player.level++;
+    level6=true;
+  }
+
+  var html="";
+  var keys=Object.keys(player);
+  var values=Object.values(player);
+  //DISPLAY MESSAGE IF LEVEL UP
+  if(levelHolder<player.level){
+    playerL.style.visibility="visible";
+
+    for (var i = 1; i < keys.length; i++) {
+      html +=keys[i]+":"+values[i]+"|| ";
+    }
+      playerL.innerHTML="Level up, your stats: "+html;
+  }
+
+  //FINAL STATS
+  if(gOver==true){
+    for (var i = 1; i < keys.length; i++) {
+      html +=keys[i]+":"+values[i]+"|| ";
+    }
+    playerL.innerHTML="Final stats: "+html;
+    playerL.style.visibility="visible";
+  }
+
+}
+
+function Items() {
+
+  if(useItem.value.toLowerCase()=="potion"){
+    if(player.maxHealth<=playerHealth+potion.use){
+      playerHealth=player.maxHealth;
+      health.style.background="red";
+    } else{
+      playerHealth +=potion.use;
+      health.style.background='linear-gradient(to right, red, white '+playerHealth+'%)';
+    }
+    inventory.splice(dummyInventory2.indexOf('potion'),1);
+    dummyInventory2.splice(dummyInventory2.indexOf('potion'),1);
+    inventoryuse.innerHTML="You used a potion: +"+potion.use+" health";
+    inventoryuse.style.visibility="visible";
+  }
+  if(useItem.value.toLowerCase()=="potionbig"){
+    if(player.maxHealth<=playerHealth+potionBig.use){
+      playerHealth=player.maxHealth;
+      health.style.background="red";
+    } else{
+      playerHealth +=potionBig.use;
+      health.style.background='linear-gradient(to right, red, white '+playerHealth+'%)';
+    }
+    inventory.splice(dummyInventory2.indexOf('potionBig'),1);
+    dummyInventory2.splice(dummyInventory2.indexOf('potionBig'),1);
+    inventoryuse.innerHTML="You used a big potion: +"+potionBig.use+" health";
+    inventoryuse.style.visibility="visible";
+  }
+
+  if(useItem.value.toLowerCase()=="shieldrepair"){
+    player.shieldUse +=shieldRepair.use;
+    inventory.splice(dummyInventory2.indexOf('shieldRepair'),1);
+    dummyInventory2.splice(dummyInventory2.indexOf('shieldRepair'),1);
+    inventoryuse.innerHTML="You used a shield repair kit: +"+shieldRepair.use+" to shieldUse";
+    inventoryuse.style.visibility="visible";
+  }
+  if(useItem.value.toLowerCase()=="powerpotion"){
+    holderPower=player.power;
+    console.log(player.power);
+    player.power +=powerPotion.use;
+    console.log(player.power);
+    inventory.splice(dummyInventory2.indexOf('Powerpotion'),1);
+    dummyInventory2.splice(dummyInventory2.indexOf('Powerpotion'),1);
+    inventoryuse.innerHTML="You used a power potion: +"+powerPotion.use+" to power (temporary)";
+    inventoryuse.style.visibility="visible";
+  }
+  inventoryShow();
+}
+
+
+//BUILDING THE AREA WHERE FIGHTS HAPPEN
+function buildFightArea(){
+  if(builderR<1){
+  var div=document.createElement('div');
+  div.style.position="absolute";
+  div.style.top="47%";
+  div.style.right="10%";
+  div.style.width="300px";
+  div.style.height="300px";
+  div.style.border="1px solid black";
+  div.style.background="url('forest.jpg') no-repeat";
+  div.style.backgroundSize="100%";
+  div.style.zIndex="10";
+  div.id="fightArena2";
+  gameAREA.appendChild(div);
+
+  //CREATE ENEMY IMAGE
+  var imgE=document.createElement('img');
+  imgE.src=arenaEnemy;
+  imgE.style.position="absolute";
+  imgE.style.bottom="0";
+  imgE.style.right="0";
+  imgE.style.zIndex="20";
+  imgE.id="ArenaEnemy";
+  imgE.style.visibility="visible";
+  div.appendChild(imgE);
+
+  //CREATE PLAYER IMAGE
+  var imgP=document.createElement('img');
+  imgP.src="hunter1.png";
+  imgP.style.position="absolute";
+  imgP.style.bottom="0";
+  imgP.style.left="0";
+  imgP.style.zIndex="20";
+  imgP.id="ArenaPlayer";
+  imgP.style.visibility="visible";
+  div.appendChild(imgP);
+  builderR ++;
+  holdArenaPlayer=document.getElementById('ArenaPlayer');
+
+} else{
+
+  //MAKE HOLDER FOR THESE TO SHORTEN THE CODE
+
+  document.getElementById('ArenaEnemy').src=arenaEnemy;
+  document.getElementById('fightArena2').style.visibility="visible";
+  document.getElementById('ArenaEnemy').style.visibility="visible";
+  holdArenaPlayer.style.visibility="visible";
+}
+  // removeArena=document.getElementById("fightArena2");//THIS
+}
+
+function addLevels() {
+  for (var i = 8; i < 16; i++) {//images.length if possible to var i value
+    var div=document.createElement("DIV");
+    div.classList.add("smallA");
+    div.id=i;
+    div.dataset.play="true";
+    div.dataset.visit="false";
+    div.dataset.prevent="I";
+    div.addEventListener("click",monstersAppear);
+    gameA.appendChild(div);
+
+    var img=document.createElement("img");
+    img.classList.add("playerImg");
+    div.appendChild(img);
+
+    var imgEnemy=document.createElement("img");
+    imgEnemy.classList.add("enemy");
+    div.appendChild(imgEnemy);
+  }
+
+  images=document.querySelectorAll(".playerImg");
+  imagesEnemies=document.querySelectorAll(".enemy");
+}
+
+function clearCanvas() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+
+function displayStatsP() {
+
+  //DISPLAYING PLAYER STATS
+  holder.title="Name: "+player.name+"||"+"maxHealth: "+player.maxHealth+"||"+"Power: "+player.power+"||"+"Shield: "+player.shield+"||"+"ShieldUse: "+player.shieldUse+"||"+"Dodge: "+player.dodge;
+}
+
+function displayStatsE() {
+
+  //DISPLAYING ENEMY STATS
+  holderEnePic.title="Name: "+holder2.name+"||"+"Health: "+holder2.health+"||"+"Power: "+holder2.power+"||"+"Shield: "+holder2.shield+"||"+"ShieldUse: "+holder2.shieldUse+"||"+"Dodge: "+holder2.dodge;
+}
+
+function showHealth() {
+  health.title="Remaining: "+playerHealth.toFixed(2)+" hp";
+}
+
+function playerDama() {
+  holdArenaPlayer.style.backgroundColor="transparent";
+  holdArenaPlayer.style.opacity="1";
+  clearTimeout(pD);
+}
+
+</script>
+
+
+</body>
+
+</html>

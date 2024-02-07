@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title> Monster World </title>
+<link href="https://fonts.googleapis.com/css?family=Margarine" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sniglet" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
+<link rel="stylesheet" href="monster world_styles.css">
+
+<style>
+
+
+</style>
+
+</head>
+
+<body>
+
+  <div id="GAME">
+
+
+  <audio src="shaker-analog.wav" id="audio1"></audio>
+  <audio src="http://ccmixter.org/content/airtone/airtone_-_nightRain.mp3" id="audioIntro"></audio>
+  <audio src="bensound-epic.mp3" id="audioLevel1"></audio>
+  <audio src="bensound-birthofahero.mp3" id="audioLevel2"></audio>
+  <audio src="http://ccmixter.org/content/veezyn/veezyn_-_Apocalyptic.mp3" id="hydraTune"></audio>
+  <audio src="http://ccmixter.org/content/Loveshadow/Loveshadow_-_Marcos_Theme.mp3" id="deadTune"></audio>
+  <audio src="POL-perfect-engineering-short.wav" id="endTune"></audio>
+
+  <div id="wrapOutputs">
+
+  <div id="output">
+
+  </div>
+
+  <div id="output2">
+
+  </div>
+
+  </div>
+
+  <div id="wrapInputs">
+
+  <input id="fightYN" type="button" value="Fight">
+  <input id="flee" type="button" value="Flee">
+  <input id="shield" type="button">
+  <input id="useItem" type="text">
+
+  </div>
+
+  <input id="startG" type="button" value="Start Game">
+
+  <div id="gameAholder">
+
+  <div id="gameA" class="Rule">
+
+  </div>
+
+  </div>
+
+    <p>Health</p><div id="healthB">
+
+  </div>
+
+  <div id="wrapper">
+
+
+  <div id="fightArena">
+
+  </div>
+
+  <div id="arena2">
+
+  </div>
+
+  <input id="attack" type="button" value="ATTACK">
+  <input id="continue" type="button" value="Continue">
+
+  </div>
+
+<div id="gameO">
+  <img src="unnamedS.png" id="cross">
+</div>
+
+<div id="xp"></div>
+
+<div id="playerL">
+
+</div>
+
+<div id="wrapInventory">
+
+<div id="Inv">
+  <h3>Inventory</h3>
+  <div class="InvC">
+
+  </div>
+</div>
+
+<div id="inventoryinfo">
+
+</div>
+
+<div id="inventoryuse">
+
+</div>
+
+<div id="inventoryExceeded">
+
+</div>
+
+</div>
+
+</div>
+
+<h1 id="title">MONSTER WORLD</h1>
+
+  <h2 id="cc">&copy; MP- all rights reserved 2019</h2>
+
+    <canvas id="canvas" width="300" height="300"></canvas>
+
+    <!-- <div id="container"> -->
+        		<div id="storybox">
+            <div id="storyC">
+
+            </div>
+          </div>
+        	<!-- </div> -->
+
+<div id="credits">CREDITS</div>
+
+<div class="creditsList">
+  <h4>SONG CREDITS (in order of appearance)</h4>
+  <ul>
+    <li>Intro: nightRain by airtone (c) copyright 2017 Licensed under a Creative Commons Attribution license. http://dig.ccmixter.org/files/airtone/55887 </li>
+    <li>bensound-epic.mp3, Music: https://www.bensound.com, FREE Creative Commons License</li>
+    <li>bensound-birthofahero.mp3, Music: https://www.bensound.com, FREE Creative Commons License</li>
+    <li>Apocalyptic by veezyn (c) copyright 2016 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/veezyn/53329 Ft: Snowflake</li>
+    <li>Marcos Theme by Loveshadow (c) copyright 2015 Licensed under a Creative Commons Attribution Noncommercial  (3.0) license. http://dig.ccmixter.org/files/Loveshadow/52221</li>
+    <li>https://www.playonloop.com/freebies-download/, "Perfect Engineering" short edit, Creative commons 4.0 license: https://creativecommons.org/licenses/by/4.0/</li>
+  </ul>
+  <h4>Graphics</h4>
+  <ul>
+    <li>shield: https://thenounproject.com/term/broken-shield/41436/</li>
+    <li>broken shield: https://game-icons.net/tags/shield.html</li>
+    <li>orc: https://thenounproject.com/term/orc/1395139/</li>
+    <li>goblin: https://thenounproject.com/term/goblin/1005190/</li>
+    <li>zombie: https://thenounproject.com/term/zombie/2134/</li>
+    <li>golem: https://thenounproject.com/term/golem/1387808/</li>
+    <li>dragon: (https://thenounproject.com/search/?q=dragon&i=9369)</li>
+    <li>swords(fight): (https://thenounproject.com/term/sword/8437/)</li>
+    <li>surrender flag=https://cz.clipartlogo.com/image/waving-white-flag-clip-art_470699.html (by nicubunu)</li>
+    <li>cyclopse:https://www.iconfinder.com/icons/3218305/brute_cyclops_greek_monster_mythical_mythology_one_eye_icon</li>
+    <li>
+hydra: https://www.iconfinder.com/icons/2117467/beast_creature_fantasy_hydra_lernaean_monster_serpent_icon</li>
+    <li>bigfoot: https://www.pinterest.com/pin/472878029607018121/</li>
+    <li>giant: https://www.iconfinder.com/icons/3227243/creature_giant_hammer_monster_ogre_troll_ugly_icon</li>
+    <li>cross???</li>
+  </ul>
+  <h4>Backgrounds</h4>
+  <ul>
+    <li>https://cdnb.artstation.com/p/assets/images/images/000/468/349/large/guodong-zhao-long1.jpg?1443929857
+(startscreen pic) by Guodong Zhao, sandaosi@foxmail.com</li>
+  <li>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvrhWksLrCchjBdf5qaEUNvd9gzh3budc5F0uC5QCWwaW173YjLQ
+(level 1 background)</li>
+  <li>https://archive.org/download/ancient_city_by_hetnoodlot/ancient_city_by_hetnoodlot.jpg
+(level 2 background)</li>
+  <li>level 1 fight background???</li>
+  <li>https://cdna.artstation.com/p/assets/images/images/003/804/720/large/ralph-osn-2.jpg?1484404740
+(level 2 fight background)</li>
+  <li>http://cp14.nevsepic.com.ua/18/17593/1384774603-1-116.jpg
+(Monster defeated, game over, GO.jpg)</li>
+  </ul>
+  </div>
+
+  <div id="endScore">
+
+  </div>
+
+  <div id="diffList"> DIFFICULTY
+
+  </div>
+
+  <div class="difficulty">
+
+  <input class="difficulties" id="easy" type="button" value="Easy">
+  <input class="difficulties" id="normal" type="button" value="Normal">
+  <input class="difficulties" id="hard" type="button" value="Hard">
+
+  </div>
+
+
+<script src="monster world_script_buttons_flee.js">
+
+
+</script>
+
+
+</body>
+
+</html>
